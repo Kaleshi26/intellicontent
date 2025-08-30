@@ -74,4 +74,78 @@ async def read_users_me(current_user: models.User = Depends(auth.get_current_use
 
 @app.post("/generate", response_model=schemas.Content)
 async def generate_content(
-    request: schemas
+    request: schemas.GenerateRequest,
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(database.get_db)
+):
+    try:
+        # Generate content using AI service
+        generated_content, model_used = await ai_service.AIService.generate_content(
+            prompt=request.prompt,
+            content_type=request.content_type,
+            model=request.model,
+            max_tokens=request.max_tokens
+        )
+        
+        # Save to database
+        db_content = models.Content(
+            title=request.prompt[:50] + "..." if len(request.prompt) > 50 else request.prompt,
+            content_type=request.content_type,
+            input_text=request.prompt,
+            generated_content=generated_content,
+            model_used=model_used,
+            user_id=current_user.id
+        )
+        db.add(db_content)
+        db.commit()
+        db.refresh(db_content)
+        
+        return db_content
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/contents", response_model=List[schemas.Content])
+def get_user_contents(
+    skip: int = 0,
+    limit: int = 100,
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(database.get_db)
+):
+    contents = db.query(models.Content).filter(
+        models.Content.user_id == current_user.id
+    ).offset(skip).limit(limit).all()
+    return contents
+
+@app.get("/contents/{content_id}", response_model=schemas.Content)
+def get_content(
+    content_id: int,
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(database.get_db)
+):
+    content = db.query(models.Content).filter(
+        models.Content.id == content_id,
+        models.Content.user_id == current_user.id
+    ).first()
+    if not content:
+        raise HTTPException(status_code=404, detail="Content not found")
+    return content
+
+@app.delete("/contents/{content_id}")
+def delete_content(
+    content_id: int,
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(database.get_db)
+):
+    content = db.query(models.Content).filter(
+        models.Content.id == content_id,
+        models.Content.user_id == current_user.id
+    ).first()
+    if not content:
+        raise HTTPException(status_code=404, detail="Content not found")
+    
+    db.delete(content)
+    db.commit()
+    return {"message": "Content deleted successfully"}
+
+if __name__ == "__main__":
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
