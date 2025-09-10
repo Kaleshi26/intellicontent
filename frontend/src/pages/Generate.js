@@ -1,3 +1,4 @@
+// frontend/src/pages/Generate.js
 import React, { useState } from 'react';
 import {
   Paper,
