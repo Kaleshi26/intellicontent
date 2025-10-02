@@ -1,4 +1,4 @@
-// frontend/src/pages/History.js
+
 import React, { useState, useEffect } from 'react';
 import {
   Paper,
