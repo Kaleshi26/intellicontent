@@ -1,5 +1,4 @@
 // frontend/src/pages/Dashboard.js
-
 import React, { useState, useEffect } from 'react';
 import {
   Grid,
