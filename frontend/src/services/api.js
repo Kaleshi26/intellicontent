@@ -1,5 +1,5 @@
 // frontend/src/services/api.js
-
+// API service module for interacting with the backend server
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
