@@ -1,4 +1,4 @@
-
+// MUI Theme Configuration with Light and Dark Modes
 import { createTheme } from '@mui/material/styles';
 
 // Color palette
