@@ -43,6 +43,27 @@ intellicontent/
 
 ## Quickstart
 
+> 📖 **For detailed setup instructions, see [SETUP.md](./SETUP.md)**
+
+### Quick Start with Docker (Recommended)
+
+```bash
+# 1. Clone the repository
+git clone <your-repo-url>
+cd intellicontent
+
+# 2. Set up environment variables (optional for basic testing)
+# Create .env file with your API keys (see below)
+
+# 3. Run with Docker Compose
+docker-compose up --build
+
+# 4. Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:8000
+# API Docs: http://localhost:8000/docs
+```
+
 ### 1) Environment
 
 Create a `.env` file for the backend (see variables below). For development defaults, you can export env vars or use a `.env` loader.

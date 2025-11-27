@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Change this line from 'npm ci' to 'npm install'
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY . .
