@@ -15,8 +15,9 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 
 # upgrade pip/setuptools/wheel then install requirements
-RUN pip install --upgrade pip setuptools wheel && \
-    pip install --no-cache-dir -r requirements.txt
+# Increase timeout to 100 seconds to prevent network errors
+RUN pip install --upgrade pip setuptools wheel --default-timeout=100 && \
+    pip install --no-cache-dir -r requirements.txt --default-timeout=100
 
 # Copy application code
 COPY ./app ./app
