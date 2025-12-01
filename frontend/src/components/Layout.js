@@ -1,11 +1,10 @@
 // frontend/src/components/Layout.js
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   AppBar,
   Toolbar,
   Typography,
   Button,
-  Container,
   Box,
   IconButton,
   Menu,
@@ -30,7 +29,7 @@ import {
   Dashboard,
   AutoAwesome,
   History,
-  Template,
+  Article, // <--- CHANGED: Replaced 'Template' with 'Article'
   Person,
   Settings,
   Analytics,
@@ -38,14 +37,10 @@ import {
   Logout,
   Notifications,
   Search,
-  Keyboard,
   Brightness4,
   Brightness7,
-  Close,
-  ChevronLeft,
-  ChevronRight,
 } from '@mui/icons-material';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme as useCustomTheme } from '../contexts/ThemeContext';
@@ -62,10 +57,9 @@ const Layout = ({ children }) => {
   
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [setCommandPaletteOpen] = useState(false); // Removed unused var warning
   
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
 
   // Keyboard shortcuts
   useHotkeys('ctrl+k, cmd+k', (e) => {
@@ -105,7 +99,7 @@ const Layout = ({ children }) => {
     { label: 'Dashboard', path: '/dashboard', icon: <Dashboard />, shortcut: 'Ctrl+Shift+D' },
     { label: 'Generate', path: '/generate', icon: <AutoAwesome />, shortcut: 'Ctrl+Shift+G' },
     { label: 'History', path: '/history', icon: <History /> },
-    { label: 'Templates', path: '/templates', icon: <Template /> },
+    { label: 'Templates', path: '/templates', icon: <Article /> }, // <--- CHANGED: Used Article icon here
     { label: 'Analytics', path: '/analytics', icon: <Analytics /> },
   ];
 
@@ -411,8 +405,6 @@ const Layout = ({ children }) => {
           Logout
         </MenuItem>
       </Menu>
-      
-      {/* Command Palette - will be handled by App.js */}
     </Box>
   );
 };
