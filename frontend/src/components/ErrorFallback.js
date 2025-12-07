@@ -1,3 +1,4 @@
+// frontend/src/components/ErrorFallback.js
 import React from 'react';
 import { Box, Typography, Button, Container, Paper } from '@mui/material';
 import { motion } from 'framer-motion';
