@@ -1,3 +1,4 @@
+// frontend/src/pages/SharedContent.js
 import React from 'react';
 import { Box, Typography, Container, Paper } from '@mui/material';
 import { useParams } from 'react-router-dom';
