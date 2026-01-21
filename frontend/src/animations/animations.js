@@ -1,3 +1,4 @@
+// Animation definitions using Framer Motion
 import { motion } from 'framer-motion';
 
 // Page transitions
