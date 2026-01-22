@@ -1,3 +1,4 @@
+// frontend/src/contexts/ThemeContext.js
 import React, { createContext, useContext } from 'react';
 
 const ThemeContext = createContext();
