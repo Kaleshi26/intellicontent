@@ -1,3 +1,4 @@
+// frontend/src/contexts/Notification
 import React, { createContext, useContext } from 'react';
 
 const NotificationContext = createContext();
